@@ -10,13 +10,15 @@ Merk at hovedpoenget her ikke er å bli først ferdig, men å roe ned og prøve 
 ## Prerequisites
 
 - [node med npm](https://nodejs.org/en)
+- [git](https://git-scm.com/)
 
 ## Workshop
 
 1. Sett opp en package.json med `npm init -y`
 2. Installer React, React DOM med kommandoen `npm install --save react react-dom`
-3. Installer Typescript med `npm install --save react react-dom`
-4. Sett opp en basic `tsconfig.json`, for nå holder det med
+3. Installer Typescript med `npm install --save react react-dom`. Nå som vi har fått på plass typescript er det en god i de å dra med seg typedeklerasjoner for pakkene vi benytter for react koden vår, kjør `npm i --save-dev @types/react @types/react-dom`. Legg merke til `--save-dev`. Om dette er ukjent for deg ville jeg tatt meg tiden til å se raskt på hvordan NPM [strukturerer avhengigheter.](https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file)
+4. Set opp `webpack.config.js` på rot
+5. Sett opp en basic `tsconfig.json` og legg den på rotnivå av repo. For nå holder det med
 
 ```json
 {
@@ -52,7 +54,7 @@ module.exports = {
 ```
 
 7. Installer Babel og aktuelle presets `npm install --save-dev @babel/core babel-loader @babel/preset-env @babel/preset-react @babel/preset-typescript`
-8. Set opp `.babelrc` fil
+8. Set opp en `.babelrc` fil
 
 ```
 {
@@ -109,6 +111,7 @@ module.exports = {
 13. Oppdater `webpack.config.js` med den nye plugin'en, og pek den på filen vi opprettet over.
 
 ```js
+// ...
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
@@ -124,14 +127,25 @@ module.exports = {
 14. La oss opprette en enkel react-komponent - `./src/index.tsx`
 
 ```tsx
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 
 const App: React.FC = () => {
-  return <div>Hei, verden!</div>;
+  const [counter, setCounter] = useState(0);
+  return (
+    <div>
+      <h2>Hei, verden! 😎</h2>
+      <button onClick={() => setCounter(counter + 1)}>Klikk?</button>
+      <p>Du har klikket på meg {counter} ganger🥵</p>
+    </div>
+  );
 };
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const rootElement = document.getElementById("root");
+if (!rootElement) {
+  throw new Error("root not found");
+}
+const root = ReactDOM.createRoot(rootElement);
 
 root.render(<App />);
 ```
@@ -145,5 +159,5 @@ root.render(<App />);
 }
 ```
 
-16. Start opp appen med `npm start` og hopp inn i http://localhost:8080
-17. Viola!
+17. Start opp appen med `npm start`. Dette skal forhåpentligvis starte opp applikasjonen og åpne den opp i nettleseren din.
+18. Legg merke til at webpack vil lytte på endringer på filene dine og serve disse på nytt. Hot reload!
