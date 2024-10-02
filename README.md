@@ -16,7 +16,7 @@ Merk at hovedpoenget her ikke er å bli først ferdig, men å roe ned og prøve 
 
 1. Sett opp en package.json med `npm init -y`
 2. Installer React, React DOM med kommandoen `npm install --save react react-dom`
-3. Installer Typescript med `npm install --save react react-dom`. Nå som vi har fått på plass typescript er det en god i de å dra med seg typedeklerasjoner for pakkene vi benytter for react koden vår, kjør `npm i --save-dev @types/react @types/react-dom`. Legg merke til `--save-dev`. Om dette er ukjent for deg ville jeg tatt meg tiden til å se raskt på hvordan NPM [strukturerer avhengigheter.](https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file)
+3. Installer Typescript med `npm install --save-dev typescript`. Nå som vi har fått på plass typescript er det en god i de å dra med seg typedeklerasjoner for pakkene vi benytter for react koden vår, kjør `npm i --save-dev @types/react @types/react-dom`. Legg merke til `--save-dev`. Om dette er ukjent for deg ville jeg tatt meg tiden til å se raskt på hvordan NPM [strukturerer avhengigheter.](https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file)
 4. Set opp `webpack.config.js` på rot
 5. Sett opp en basic `tsconfig.json` og legg den på rotnivå av repo. For nå holder det med
 
