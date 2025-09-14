@@ -14,19 +14,52 @@ Merk at hovedpoenget her ikke er å bli først ferdig, men å roe ned og prøve 
 
 ## Workshop
 
-1. Sett opp en package.json med `npm init -y`
-2. Installer React, React DOM med kommandoen `npm install --save react react-dom`
-3. Installer Typescript med `npm install --save-dev typescript`. Nå som vi har fått på plass typescript er det en god i de å dra med seg typedeklerasjoner for pakkene vi benytter for react koden vår, kjør `npm i --save-dev @types/react @types/react-dom`. Legg merke til `--save-dev`. Om dette er ukjent for deg ville jeg tatt meg tiden til å se raskt på hvordan NPM [strukturerer avhengigheter.](https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file)
-4. Set opp `webpack.config.js` på rot
-5. Sett opp en basic `tsconfig.json` og legg den på rotnivå av repo. For nå holder det med
+1. Sett opp en package.json med 
+
+```bash
+npm init -y
+```
+
+2. Installer React, React DOM med kommandoen 
+
+```bash
+npm install --save react react-dom
+```
+
+3. Installer Typescript med 
+
+```bash
+npm install --save-dev typescript
+```
+
+Nå som vi har fått på plass typescript er det en god i de å dra med seg typedeklerasjoner for pakkene vi benytter for react koden vår, kjør 
+
+```bash
+npm i --save-dev @types/react @types/react-dom
+``` 
+
+Legg merke til `--save-dev`. Om dette er ukjent for deg ville jeg tatt meg tiden til å se raskt på hvordan NPM [strukturerer avhengigheter.](https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file)
+
+4. Sett opp en basic `tsconfig.json` og legg den på rotnivå av repo. For nå holder det med
+  - [compilerOptions](https://www.typescriptlang.org/tsconfig/#compilerOptions)
+    - [target](https://www.typescriptlang.org/tsconfig/#target)
+    - [allowJs](https://www.typescriptlang.org/tsconfig/#allowJs)
+    - [jsx](https://www.typescriptlang.org/tsconfig/#jsx)
+    - [module](https://www.typescriptlang.org/tsconfig/#module)
+    - [moduleResolution](https://www.typescriptlang.org/tsconfig/#moduleResolution)
+    - [outDir](https://www.typescriptlang.org/tsconfig/#outDir)
+    - [strict](https://www.typescriptlang.org/tsconfig/#strict)
+    - [esModuleInterop](https://www.typescriptlang.org/tsconfig/#esModuleInterop)
+  - [include](https://www.typescriptlang.org/tsconfig/#include)
 
 ```json
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "allowJs": true,
     "jsx": "react",
-    "moduleResolution": "node",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true
@@ -35,13 +68,19 @@ Merk at hovedpoenget her ikke er å bli først ferdig, men å roe ned og prøve 
 }
 ```
 
-5. Installer `webpack` med `npm install --save-dev webpack webpack-cli webpack-dev-server`
+5. Installer `webpack` med 
+
+```bash
+npm install --save-dev webpack webpack-cli webpack-dev-server
+```
+
 6. Set opp `webpack.config.js` på rot
 
 ```js
 const path = require("path");
 
 module.exports = {
+  mode: "development",
   entry: "./src/index.tsx",
   output: {
     filename: "bundle.js",
@@ -53,8 +92,15 @@ module.exports = {
 };
 ```
 
-7. Installer Babel og aktuelle presets `npm install --save-dev @babel/core babel-loader @babel/preset-env @babel/preset-react @babel/preset-typescript`
-8. Set opp en `.babelrc` fil
+7. Installer Babel og aktuelle presets
+
+```bash
+npm install --save-dev @babel/core babel-loader @babel/preset-env @babel/preset-react @babel/preset-typescript
+```
+
+8. Set opp en `.babelrc.json` fil
+- [.babelrc.json](https://babeljs.io/docs/configuration#babelconfigjson)
+  - [presets](https://babeljs.io/docs/presets)
 
 ```
 {
@@ -73,6 +119,9 @@ La oss ta en fot i bakken og lese oss raskt opp på hva disse preset'ene faktisk
 - [babel-preset-react](https://babeljs.io/docs/babel-preset-react)
 
 9. La oss integrere `webpack` og `babel`! Oppdater `webpack.config.js` til å inkludere følgende
+- [webpack](https://webpack.js.org/configuration)
+  - [module](https://webpack.js.org/configuration/module)
+    - [rules](https://webpack.js.org/configuration/module/#modulerules)
 
 ```js
 // ...
@@ -107,7 +156,13 @@ module.exports = {
 ```
 
 11. For å få webpack til å spille på lag med html-filen over trenger vi en ny plugin - html-webpack-plugin! Les deg opp på hva den gjør [her.](https://webpack.js.org/plugins/html-webpack-plugin/)
-12. Installer den `npm install --save-dev html-webpack-plugin`
+
+12. Installer den 
+
+```bash
+npm install --save-dev html-webpack-plugin
+```
+
 13. Oppdater `webpack.config.js` med den nye plugin'en, og pek den på filen vi opprettet over.
 
 ```js
@@ -160,4 +215,5 @@ root.render(<App />);
 ```
 
 17. Start opp appen med `npm start`. Dette skal forhåpentligvis starte opp applikasjonen og åpne den opp i nettleseren din.
+
 18. Legg merke til at webpack vil lytte på endringer på filene dine og serve disse på nytt. Hot reload!
